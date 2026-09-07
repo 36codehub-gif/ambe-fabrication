@@ -1,32 +1,146 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenu = document.getElementById('mobileMenu');
-    const navLinks = document.getElementById('navLinks');
-    const navItems = document.querySelectorAll('.nav-item');
+/* ================================
+   MOBILE MENU
+================================ */
 
-    // Toggle Mobile Menu
-    mobileMenu.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        
-        // Change icon menu to cross when open
-        const icon = mobileMenu.querySelector('i');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
+const menuBtn =
+document.getElementById("menuBtn");
 
-    // Close Mobile Menu when link clicked
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                const icon = mobileMenu.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-    });
+const navMenu =
+document.getElementById("navMenu");
+
+if(menuBtn){
+
+  menuBtn.addEventListener("click",function(){
+
+    navMenu.classList.toggle("show");
+
+  });
+
+}
+
+
+/* ================================
+   CLOSE MOBILE MENU
+================================ */
+
+document
+.querySelectorAll(".nav-menu a")
+.forEach(function(link){
+
+  link.addEventListener("click",function(){
+
+    if(navMenu){
+      navMenu.classList.remove("show");
+    }
+
+  });
+
 });
+
+
+/* ================================
+   CURRENT YEAR
+================================ */
+
+const year =
+document.getElementById("year");
+
+if(year){
+
+  year.textContent =
+  new Date().getFullYear();
+
+}
+
+
+/* ================================
+   MAIN IMAGE UPLOAD
+================================ */
+
+const imageUpload =
+document.getElementById("imageUpload");
+
+const mainImage =
+document.getElementById("mainImage");
+
+if(imageUpload && mainImage){
+
+  imageUpload.addEventListener(
+    "change",
+    function(event){
+
+      const file =
+      event.target.files[0];
+
+      if(!file) return;
+
+      const imageURL =
+      URL.createObjectURL(file);
+
+      mainImage.src =
+      imageURL;
+
+    }
+  );
+
+}
+
+
+/* ================================
+   3D HERO MOUSE EFFECT
+================================ */
+
+const heroCard =
+document.getElementById("heroCard");
+
+if(heroCard){
+
+  heroCard.addEventListener(
+    "mousemove",
+    function(event){
+
+      if(window.innerWidth < 850){
+        return;
+      }
+
+      const rect =
+      heroCard.getBoundingClientRect();
+
+      const x =
+      (event.clientX - rect.left)
+      / rect.width - 0.5;
+
+      const y =
+      (event.clientY - rect.top)
+      / rect.height - 0.5;
+
+      heroCard.style.transform =
+
+      `
+      rotateX(${y * -5}deg)
+      rotateY(${x * 7}deg)
+      `;
+
+    }
+  );
+
+
+  heroCard.addEventListener(
+    "mouseleave",
+    function(){
+
+      heroCard.style.transform = "";
+
+    }
+  );
+
+}
+
+
+/* ================================
+   CONSOLE
+================================ */
+
+console.log(
+"Ambe Engineering & Fabrication Website Loaded"
+);
